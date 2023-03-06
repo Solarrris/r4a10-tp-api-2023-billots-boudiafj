@@ -1,118 +1,97 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
-  <head>
-    <title>Recherche d'offres d'emploi</title>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon-js.ico" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
 
-  <body>
-    <header>
-      <h1>Recherche d'offres d'emploi</h1>
+<head>
+  <title>VALORANT Agents Information</title>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon-js.ico" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
-      <p id="explication">
-        Cette page permet de rechercher des offres d'emploi via l'API publique
-        de <a href="https://www.indeed.fr/" target="_blank">indeed.fr</a>.<br />
-        Saisir le nom d'une ville, d'un poste, ... pour rechercher les postes
-        correspondants, et enregistrer vos recherches favorites pour les
-        retrouver facilement.
-      </p>
-    </header>
-    <hr />
+<body>
+  <header>
+    <h1>vAlorant Agents Information</h1>
 
-    <main id="conteneur">
-      <!-- Section de recherche (avec résultats) -->
-      <section id="section-recherche">
-        <div id="bloc-recherche">
-          <!-- Champ de recherche -->
-          <input type="text" placeholder="Que cherchez-vous ?" />
+    <p id="explication">
+      This page allows you to search for VALORANT agents information by using the public API of <a
+        href="https://valorant-api.com/" target="_blank">valorant-api.com</a>.<br />
+      Type in the name of an Agent, a weapon, ... to search for the corresponding ones, and save your favorite
+      researches to find them quickly.
+    </p>
+  </header>
+  <hr />
 
-          <!-- Boutons -->
-          <button
-            id="btn-lancer-recherche"
-            type="button"
-            class="btn_clicable"
-            title="Lancer la recherche"
-          >
-            <!-- Icone Loupe (provenant de flaticon.com) -->
-            <img src="images/loupe.svg" alt="Loupe pour recherche" width="22" />
-          </button>
+  <main id="conteneur">
+    <!-- Section de recherche (avec résultats) -->
+    <section id="section-recherche">
+      <div id="bloc-recherche">
+        <!-- Champ de recherche -->
+        <input type="text" placeholder="What do you search for?" />
 
-          <button
-            id="btn-favoris"
-            type="button"
-            disabled
-            title="Ajouter la recherche aux favoris"
-          >
-            <!-- Icone étoile vide
+        <!-- Boutons -->
+        <button id="btn-lancer-recherche" type="button" class="btn_clicable" title="Lancer la recherche">
+          <!-- Icone Loupe (provenant de flaticon.com) -->
+          <img src="images/loupe.svg" alt="Search Icon" width="22" />
+        </button>
+
+        <button id="btn-favoris" type="button" disabled title="Add to favourites icon">
+          <!-- Icone étoile vide
 							(qui indique que la recherche ne fait pas partie des favoris) -->
-            <img src="images/etoile-vide.svg" alt="Etoile vide" width="22" />
+          <img src="images/etoile-vide.svg" alt="Empty star" width="22" />
 
-            <!-- Icone étoile pleine
+          <!-- Icone étoile pleine
 								(qui indique que la recherche fait partie des favoris) -->
-            <!-- <img src="images/etoile-pleine.svg" alt="Etoile pleine" width="22" > -->
+          <!-- <img src="images/etoile-pleine.svg" alt="Filled star" width="22" > -->
 
-            <!-- (Les 2 icones d'étoile provenant de flaticon.com) -->
-          </button>
-        </div>
+          <!-- (Les 2 icones d'étoile provenant de flaticon.com) -->
+        </button>
+      </div>
 
-        <!-- Résultats de recherche -->
-        <div id="bloc-gif-attente">
-          <img
-            src="images/attente-ajax.gif"
-            alt="GIF Attente de résultats"
-            width="50"
-          />
-        </div>
-        <div id="bloc-resultats">
-          <p class="res">Résultat 1 ...</p>
-          <p class="res">Résultat 2 ...</p>
-          <p class="res">Résultat 3 ...</p>
-          <p class="info-vide">(Aucun résultat trouvé)</p>
-        </div>
-      </section>
+      <!-- Résultats de recherche -->
+      <div id="bloc-gif-attente">
+        <img src="images/attente-ajax.gif" alt="GIF Attente de résultats" width="50" />
+      </div>
+      <div id="bloc-resultats">
+        <p class="res">Result 1 ...</p>
+        <p class="res">Result 2 ...</p>
+        <p class="res">Result 3 ...</p>
+        <p class="info-vide">(Nothing found)</p>
+      </div>
+    </section>
 
-      <!-- Section de séparation (avec la bordure verte) -->
-      <section id="section-separation"></section>
+    <!-- Section de séparation (avec la bordure verte) -->
+    <section id="section-separation"></section>
 
-      <!-- Section des recherches favorites -->
-      <section id="section-favoris">
-        <h2>Recherches favorites</h2>
-        <p>
-          Cliquer sur une recherche favorite ci-dessus pour relancer celle-ci :
-        </p>
-        <ul id="liste-favoris">
-          <li>
-            <span title="Cliquer pour relancer la recherche">Grenoble</span>
-            <img
-              src="images/croix.svg"
-              alt="Icone pour supprimer le favori"
-              width="15"
-              title="Cliquer pour supprimer le favori"
-            />
-          </li>
-          <li>
-            <span title="Cliquer pour relancer la recherche">Lyon</span>
-            <img
-              src="images/croix.svg"
-              alt="Icone pour supprimer le favori"
-              width="15"
-              title="Cliquer pour supprimer le favori"
-            />
-          </li>
-          <li>
-            <span title="Cliquer pour relancer la recherhe.">Web</span>
-            <img
-              src="images/croix.svg"
-              alt="Icone pour supprimer le favori"
-              width="15"
-              title="Cliquer pour supprimer le favori"
-            />
-          </li>
-        </ul>
-        <p class="info-vide">(Aucune recherche favorite)</p>
-      </section>
-    </main>
-  </body>
+    <!-- Section des recherches favorites -->
+    <section id="section-favoris">
+      <h2>Favourite researches</h2>
+      <p>
+        Click on a following research to restart it :
+      </p>
+      <ul id="liste-favoris">
+        <li>
+          <span title="Click to restart the research">Grenoble</span>
+          <img src="images/croix.svg" alt="Icon to delete the favourite research" width="15"
+            title="Click to delete the favourite research" />
+        </li>
+        <li>
+          <span title="Click to restart the research">Lyon</span>
+          <img src="images/croix.svg" alt="Icon to delete the favourite research" width="15"
+            title="Click to delete the favourite research" />
+        </li>
+        <li>
+          <span title="Click to restart the research">Web</span>
+          <img src="images/croix.svg" alt="Icon to delete the favourite research" width="15"
+            title="Click to delete the favourite research" />
+        </li>
+      </ul>
+      <p class="info-vide">(No favourite research)</p>
+    </section>
+  </main>
+
+  <script src="./js/view.js"></script>
+	<script src="./js/model.js"></script>
+	<script src="./js/controller.js"></script>
+</body>
+
 </html>

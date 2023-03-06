@@ -54,6 +54,6 @@ view.searchButton.addEventListener("click", async () => {
     }
 
     // Putting back the researches and removing the loading gif
-    view.searchingResults.style.display = "block";
+    view.searchingResults.style.display = "flex";
     view.waitingIcon.style.display = "none";
 });

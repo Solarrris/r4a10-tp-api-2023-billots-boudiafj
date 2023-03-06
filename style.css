@@ -4,172 +4,177 @@
 /* Importation de la police Valorant */
 
 @font-face {
-  font-family: 'Valorant';
-  src: url('./fonts/Valorant\ Font.ttf');
+    font-family: "Valorant";
+    src: url("./fonts/Valorant\ Font.ttf");
 }
 
 /* Définition des principales couleurs */
 :root {
-  --text-color: #f0f0f0; /* (Texte presque blanc) */
-  --background: #0f1923; /* (Fond noir/bleu foncé) */
-  --background-button: #bebebe;
-  --main-red: #ff4655;
-  --active-red: #ff4655;
-  --almost-black: #2d2d2d;
+    --text-color: #f0f0f0; /* (Texte presque blanc) */
+    --background: #0f1923; /* (Fond noir/bleu foncé) */
+    --background-button: #bebebe;
+    --main-red: #ff4655;
+    --active-red: #ff4655;
+    --almost-black: #2d2d2d;
 }
 
 * {
-  color: var(--text-color);
+    color: var(--text-color);
 }
 
 body {
-  background-color: var(--background);
-  font: 14pt 'Roboto', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  width: 90%;
-  margin: 40px auto;
+    background-color: var(--background);
+    font: 14pt "Roboto", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 90%;
+    margin: 40px auto;
 }
 
 /* Paragraphes "Aucun résultat..." et "Aucune recherche..." */
 p.info-vide {
-  font-style: italic;
+    font-style: italic;
 }
 
 /* Partie En-tête */
 h1 {
-  text-align: center;
-  font-family: 'Valorant', Arial, sans-serif;
-  font-size: 2.5em;
-  color: var(--main-red);
+    text-align: center;
+    font-family: "Valorant", Arial, sans-serif;
+    font-size: 2.5em;
+    color: var(--main-red);
 }
 
 #explication {
-  font-size: 1.2em;
+    font-size: 1.2em;
 }
 
 /* Conteneur principal */
 #conteneur {
-  display: flex;
-  flex: 1;
-  margin: 30px auto;
+    display: flex;
+    flex: 1;
+    margin: 30px auto;
 }
 
 /* Section Recherche (avec résultats) */
 #section-recherche {
-  margin-top: 0;
-  flex: 1 1 auto;
+    margin-top: 0;
+    flex: 1 1 auto;
 }
 
 #bloc-recherche {
-  display: flex;
-  margin: 0 auto;
-  min-width: 450px;
-  flex-direction: row;
+    display: flex;
+    margin: 0 auto;
+    min-width: 450px;
+    flex-direction: row;
 }
 
 #bloc-recherche > input[type="text"],
 #bloc-recherche > button {
-  display: block;
-  font-size: 1.2em;
+    display: block;
+    font-size: 1.2em;
 }
 
 #bloc-recherche > input[type="text"] {
-  color: var(--almost-black);
-  flex: 1;
-  padding: 0.7em;
-  border: 0.3em solid var(--main-red);
+    color: var(--almost-black);
+    flex: 1;
+    padding: 0.7em;
+    border: 0.3em solid var(--main-red);
 }
 
 #bloc-recherche > button {
-  padding: 0.8em 0.8em;
-  /* Bordure invisible pour que le hover ne bouge pas le bouton */
-  border: 1px solid var(--main-red);
+    padding: 0.8em 0.8em;
+    /* Bordure invisible pour que le hover ne bouge pas le bouton */
+    border: 1px solid var(--main-red);
 
-  /* Par défaut, les boutons sont en gris
+    /* Par défaut, les boutons sont en gris
 	 (S'ils sont "clicables", ils passent en vert) */
-  background-color: var(--background-button);
+    background-color: var(--background-button);
 }
 
 /* Apparences des boutons clicables */
 #bloc-recherche > button.btn_clicable {
-  background-color: var(--main-red);
+    background-color: var(--main-red);
 }
 
 #bloc-recherche > button:focus {
-  /* Pour éviter un affichage disgracieux
+    /* Pour éviter un affichage disgracieux
 		quand le bouton reste en focus */
-  outline: 0 !important;
+    outline: 0 !important;
 }
 
 #bloc-recherche > button.btn_clicable:hover {
-  cursor: pointer;
-  border: 1px solid white;
+    cursor: pointer;
+    border: 1px solid white;
 }
 
 #bloc-recherche > button.btn_clicable:active {
-  background-color: var(--active-red);
+    background-color: var(--active-red);
 }
 
 /* GIF de chargement (caché par défaut) */
 #bloc-gif-attente {
-  display: none;
-  margin: 40px;
-  text-align: center;
+    display: none;
+    margin: 40px;
+    text-align: center;
+}
+
+#bloc-resultats {
+    display: flex;
+    flex-direction: column;
 }
 
 #bloc-resultats p.res::before {
-  /* Affichage d'une flèche devant chaque résultat
+    /* Affichage d'une flèche devant chaque résultat
 		(Cf. https://unicode-table.com/fr/21E8/ ) */
-  content: "\21E8\00A0";
+    content: "\21E8\00A0";
 }
 
 /* Section de la barre de séparation */
 #section-separation {
-  border-left: 2px dashed var(--main-red);
-  margin: 0 20px;
+    border-left: 2px dashed var(--main-red);
+    margin: 0 20px;
 }
 
 /* Section des recherches favorites */
 #section-favoris {
-  flex: 0 0 300px;
-  margin-top: 0;
-  margin-bottom: 20px;
+    flex: 0 0 300px;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 
 #section-favoris h2 {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 #section-favoris p {
-  margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
 #liste-favoris li {
-  margin-bottom: 8px;
-  cursor: pointer;
+    margin-bottom: 8px;
+    cursor: pointer;
 }
 
 #liste-favoris li span {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 #liste-favoris li span:hover {
-  color: var(--main-red);
+    color: var(--main-red);
 }
 
 /* Media-query pour gérer l'affichage sur petit écran */
 @media (max-width: 900px) {
-  #conteneur {
-    flex-direction: column-reverse;
-  }
+    #conteneur {
+        flex-direction: column-reverse;
+    }
 
-  #section-separation {
-    border-top: 2px dashed var(--main-red);
-    margin: 0 -10px 40px -10px;
-  }
+    #section-separation {
+        border-top: 2px dashed var(--main-red);
+        margin: 0 -10px 40px -10px;
+    }
 
-  #section-favoris {
-    flex: 0;
-  }
+    #section-favoris {
+        flex: 0;
+    }
 }

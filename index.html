@@ -1,97 +1,128 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
+    <head>
+        <title>VALORANT Agents Information</title>
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" type="image/x-icon" href="favicon-js.ico" />
+        <link rel="stylesheet" href="./style.css" />
+    </head>
 
-<head>
-  <title>VALORANT Agents Information</title>
-  <meta charset="utf-8" />
-  <link rel="shortcut icon" type="image/x-icon" href="favicon-js.ico" />
-  <link rel="stylesheet" href="./style.css" />
-</head>
+    <body>
+        <header>
+            <h1>vAlorant Agents Information</h1>
 
-<body>
-  <header>
-    <h1>vAlorant Agents Information</h1>
+            <p id="explication">
+                This page allows you to search for VALORANT agents information
+                by using the public API of
+                <a href="https://valorant-api.com/" target="_blank"
+                    >valorant-api.com</a
+                >.<br />
+                Type in the name of an Agent, a weapon, ... to search for the
+                corresponding ones, and save your favorite researches to find
+                them quickly.
+            </p>
+        </header>
+        <hr />
 
-    <p id="explication">
-      This page allows you to search for VALORANT agents information by using the public API of <a
-        href="https://valorant-api.com/" target="_blank">valorant-api.com</a>.<br />
-      Type in the name of an Agent, a weapon, ... to search for the corresponding ones, and save your favorite
-      researches to find them quickly.
-    </p>
-  </header>
-  <hr />
+        <main id="conteneur">
+            <!-- Section de recherche (avec résultats) -->
+            <section id="section-recherche">
+                <div id="bloc-recherche">
+                    <!-- Champ de recherche -->
+                    <input type="text" placeholder="What do you search for?" />
 
-  <main id="conteneur">
-    <!-- Section de recherche (avec résultats) -->
-    <section id="section-recherche">
-      <div id="bloc-recherche">
-        <!-- Champ de recherche -->
-        <input type="text" placeholder="What do you search for?" />
+                    <!-- Boutons -->
+                    <button
+                        id="btn-lancer-recherche"
+                        type="button"
+                        class="btn_clicable"
+                        title="Lancer la recherche"
+                    >
+                        <!-- Icone Loupe (provenant de flaticon.com) -->
+                        <img
+                            src="images/loupe.svg"
+                            alt="Search Icon"
+                            width="22"
+                        />
+                    </button>
 
-        <!-- Boutons -->
-        <button id="btn-lancer-recherche" type="button" class="btn_clicable" title="Lancer la recherche">
-          <!-- Icone Loupe (provenant de flaticon.com) -->
-          <img src="images/loupe.svg" alt="Search Icon" width="22" />
-        </button>
-
-        <button id="btn-favoris" type="button" disabled title="Add to favourites icon">
-          <!-- Icone étoile vide
+                    <button
+                        id="btn-favoris"
+                        type="button"
+                        disabled
+                        title="Add to favourites icon"
+                    >
+                        <!-- Icone étoile vide
 							(qui indique que la recherche ne fait pas partie des favoris) -->
-          <img src="images/etoile-vide.svg" alt="Empty star" width="22" />
+                        <img
+                            src="images/etoile-vide.svg"
+                            alt="Empty star"
+                            width="22"
+                        />
 
-          <!-- Icone étoile pleine
+                        <!-- Icone étoile pleine
 								(qui indique que la recherche fait partie des favoris) -->
-          <!-- <img src="images/etoile-pleine.svg" alt="Filled star" width="22" > -->
+                        <!-- <img src="images/etoile-pleine.svg" alt="Filled star" width="22" > -->
 
-          <!-- (Les 2 icones d'étoile provenant de flaticon.com) -->
-        </button>
-      </div>
+                        <!-- (Les 2 icones d'étoile provenant de flaticon.com) -->
+                    </button>
+                </div>
 
-      <!-- Résultats de recherche -->
-      <div id="bloc-gif-attente">
-        <img src="images/attente-ajax.gif" alt="GIF Attente de résultats" width="50" />
-      </div>
-      <div id="bloc-resultats">
-        <p class="res">Result 1 ...</p>
-        <p class="res">Result 2 ...</p>
-        <p class="res">Result 3 ...</p>
-        <p class="info-vide">(Nothing found)</p>
-      </div>
-    </section>
+                <!-- Résultats de recherche -->
+                <div id="bloc-gif-attente">
+                    <img
+                        src="images/attente-ajax.gif"
+                        alt="GIF Attente de résultats"
+                        width="50"
+                    />
+                </div>
+                <div id="bloc-resultats"></div>
+            </section>
 
-    <!-- Section de séparation (avec la bordure verte) -->
-    <section id="section-separation"></section>
+            <!-- Section de séparation (avec la bordure verte) -->
+            <section id="section-separation"></section>
 
-    <!-- Section des recherches favorites -->
-    <section id="section-favoris">
-      <h2>Favourite researches</h2>
-      <p>
-        Click on a following research to restart it :
-      </p>
-      <ul id="liste-favoris">
-        <li>
-          <span title="Click to restart the research">Grenoble</span>
-          <img src="images/croix.svg" alt="Icon to delete the favourite research" width="15"
-            title="Click to delete the favourite research" />
-        </li>
-        <li>
-          <span title="Click to restart the research">Lyon</span>
-          <img src="images/croix.svg" alt="Icon to delete the favourite research" width="15"
-            title="Click to delete the favourite research" />
-        </li>
-        <li>
-          <span title="Click to restart the research">Web</span>
-          <img src="images/croix.svg" alt="Icon to delete the favourite research" width="15"
-            title="Click to delete the favourite research" />
-        </li>
-      </ul>
-      <p class="info-vide">(No favourite research)</p>
-    </section>
-  </main>
+            <!-- Section des recherches favorites -->
+            <section id="section-favoris">
+                <h2>Favourite researches</h2>
+                <p>Click on a following research to restart it :</p>
+                <ul id="liste-favoris">
+                    <li>
+                        <span title="Click to restart the research"
+                            >Grenoble</span
+                        >
+                        <img
+                            src="images/croix.svg"
+                            alt="Icon to delete the favourite research"
+                            width="15"
+                            title="Click to delete the favourite research"
+                        />
+                    </li>
+                    <li>
+                        <span title="Click to restart the research">Lyon</span>
+                        <img
+                            src="images/croix.svg"
+                            alt="Icon to delete the favourite research"
+                            width="15"
+                            title="Click to delete the favourite research"
+                        />
+                    </li>
+                    <li>
+                        <span title="Click to restart the research">Web</span>
+                        <img
+                            src="images/croix.svg"
+                            alt="Icon to delete the favourite research"
+                            width="15"
+                            title="Click to delete the favourite research"
+                        />
+                    </li>
+                </ul>
+                <p class="info-vide">(No favourite research)</p>
+            </section>
+        </main>
 
-  <script src="./js/view.js"></script>
-	<script src="./js/model.js"></script>
-	<script src="./js/controller.js"></script>
-</body>
-
+        <script src="./js/view.js"></script>
+        <script src="./js/model.js"></script>
+        <script src="./js/controller.js"></script>
+    </body>
 </html>

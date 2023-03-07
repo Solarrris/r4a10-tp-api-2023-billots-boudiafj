@@ -31,7 +31,7 @@ view.searchButton.addEventListener("click", async () => {
         if (
             agents[i].displayName
                 .toLowerCase()
-                .includes(view.searchInput.value.toLowerCase())
+                .includes(view.searchInput.value.toLowerCase()) && agents[i].isPlayableCharacter
         ) {
             searchResults.push(agents[i]);
         }
@@ -42,9 +42,55 @@ view.searchButton.addEventListener("click", async () => {
     // If agents match the research, show a list of those agents
     if (searchResults.length !== 0) {
         for (let i = 0; i < searchResults.length; i++) {
-            const result = document.createElement("p.res");
-            result.textContent = searchResults[i].displayName;
-            view.searchingResults.appendChild(result);
+            const card = document.createElement("div");
+            card.classList.add("card");
+
+            const agentDiv = document.createElement("div");
+            agentDiv.classList.add("agent");
+
+            const agentIcon = document.createElement("img");
+            agentIcon.style.width = "200px";
+            agentIcon.style.height = "200px";
+            const agentName = document.createElement("p");
+            
+            agentIcon.src = searchResults[i].displayIcon;
+            agentName.innerHTML = "<span>Nom : </span>" + searchResults[i].displayName;
+
+            agentDiv.appendChild(agentIcon);
+            agentDiv.appendChild(agentName);
+
+            const abilitiesDiv = document.createElement("div");
+            abilitiesDiv.classList.add("abilities");
+            
+            for (let j = 0; j < searchResults[i].abilities.length; j++) {
+                const abilityDiv = document.createElement("div");
+
+                const abilityIcon = document.createElement("img");
+                abilityIcon.style.width = "120px";
+                abilityIcon.style.height = "120px";
+
+                const abilityName = document.createElement("p");
+
+                abilityIcon.src = searchResults[i].abilities[j].displayIcon;
+                abilityName.innerHTML = searchResults[i].abilities[j].displayName
+
+                abilityDiv.appendChild(abilityIcon);
+                abilityDiv.appendChild(abilityName);
+
+                abilitiesDiv.appendChild(abilityDiv);
+                
+            }
+
+            const role = document.createElement("img");
+            const roleName = document.createElement("p");
+
+            role.src = searchResults[i].role.displayIcon;
+            roleName.innerHTML = searchResults[i].role.displayName;
+
+            card.appendChild(agentDiv);
+            card.appendChild(abilitiesDiv);
+
+            view.searchingResults.appendChild(card);
         }
     } else {
         // Else, a "Nothing found" text is displayed

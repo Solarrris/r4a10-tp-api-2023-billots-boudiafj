@@ -121,13 +121,39 @@ h1 {
 #bloc-resultats {
     display: flex;
     flex-direction: column;
+    margin-top: 24px;
+    gap: 24px;
 }
 
-#bloc-resultats p.res::before {
-    /* Affichage d'une flèche devant chaque résultat
-		(Cf. https://unicode-table.com/fr/21E8/ ) */
-    content: "\21E8\00A0";
+div.card {
+    background-color: #282A2A;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    padding: 16px 0 0 16px;
 }
+
+div.agent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.agent p span {
+    color: var(--main-red);
+}
+
+div.abilities {
+    display: flex;
+    gap: 52px;
+}
+
+div.abilities div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 /* Section de la barre de séparation */
 #section-separation {

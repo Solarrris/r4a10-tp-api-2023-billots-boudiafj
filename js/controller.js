@@ -12,7 +12,7 @@ const getData = async function (url) {
     }
 };
 
-view.searchButton.addEventListener("click", async () => {
+const searchForResults = async () => {
     // Showing the loading gif
     view.waitingIcon.style.display = "block";
     view.searchingResults.style.display = "none";
@@ -52,7 +52,7 @@ view.searchButton.addEventListener("click", async () => {
             agentIcon.style.width = "200px";
             agentIcon.style.height = "200px";
             const agentName = document.createElement("p");
-            
+
             agentIcon.src = searchResults[i].displayIcon;
             agentName.innerHTML = "<span>Nom : </span>" + searchResults[i].displayName;
 
@@ -61,24 +61,27 @@ view.searchButton.addEventListener("click", async () => {
 
             const abilitiesDiv = document.createElement("div");
             abilitiesDiv.classList.add("abilities");
-            
+
             for (let j = 0; j < searchResults[i].abilities.length; j++) {
-                const abilityDiv = document.createElement("div");
+                if (searchResults[i].abilities[j].slot !== 'Passive') {
+                    const abilityDiv = document.createElement("div");
 
-                const abilityIcon = document.createElement("img");
-                abilityIcon.style.width = "120px";
-                abilityIcon.style.height = "120px";
+                    const abilityIcon = document.createElement("img");
+                    abilityIcon.style.width = "120px";
+                    abilityIcon.style.height = "120px";
 
-                const abilityName = document.createElement("p");
+                    const abilityName = document.createElement("p");
 
-                abilityIcon.src = searchResults[i].abilities[j].displayIcon;
-                abilityName.innerHTML = searchResults[i].abilities[j].displayName
+                    abilityIcon.src = searchResults[i].abilities[j].displayIcon;
+                    abilityName.innerHTML = searchResults[i].abilities[j].displayName
 
-                abilityDiv.appendChild(abilityIcon);
-                abilityDiv.appendChild(abilityName);
+                    abilityDiv.appendChild(abilityIcon);
+                    abilityDiv.appendChild(abilityName);
 
-                abilitiesDiv.appendChild(abilityDiv);
-                
+                    abilitiesDiv.appendChild(abilityDiv);
+                }
+
+
             }
 
             const role = document.createElement("img");
@@ -102,4 +105,14 @@ view.searchButton.addEventListener("click", async () => {
     // Putting back the researches and removing the loading gif
     view.searchingResults.style.display = "flex";
     view.waitingIcon.style.display = "none";
-});
+}
+
+view.searchButton.addEventListener("click", searchForResults);
+
+document.addEventListener("keydown", (e) => {
+
+    console.log(e);
+    if (e.target === view.searchInput && e.code === 'Enter') {
+        searchForResults();
+    }
+})

@@ -27,6 +27,7 @@ view.searchButton.addEventListener("click", async () => {
 
     // Putting the agents that have been searched in an array
     searchResults = [];
+    
     for (let i = 0; i < agents.length; i++) {
         if (
             agents[i].displayName
@@ -98,6 +99,8 @@ view.searchButton.addEventListener("click", async () => {
         noResult.textContent = "(Nothing found)";
         view.searchingResults.appendChild(noResult);
     }
+
+    
 
     // Putting back the researches and removing the loading gif
     view.searchingResults.style.display = "flex";

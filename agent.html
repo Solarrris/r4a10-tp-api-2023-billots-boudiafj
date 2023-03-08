@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>AgentName</title>
+</head>
+<body>
+    <style>
+         #bloc-attente {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         }
+
+         #content {
+            display:none;
+         }
+    </style>
+    <div id="bloc-attente">
+        <img
+            src="images/attente-ajax.gif"
+            alt="GIF Attente de résultats"
+            width="200"
+        />
+    </div>
+    <div id="content">
+        <h1 id="agentName"></h1>
+        <div id="agentInfo">
+            <img id="agentIcon" src="" alt="">
+        </div>
+    </div>
+    
+    <script src="./js/agentView.js"></script>
+    <script src="./js/apiFunctions.js"></script>
+    <script src="./js/agentController.js"></script>
+</body>
+</html>

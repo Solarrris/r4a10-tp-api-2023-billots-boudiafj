@@ -127,6 +127,7 @@ h1 {
 
 div.card {
     background-color: #282A2A;
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 60px;

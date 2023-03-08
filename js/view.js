@@ -10,5 +10,7 @@ const view = {
 
     searchingResults: document.getElementById("bloc-resultats"),
 
+    favoritesButton: document.getElementById("btn-favoris"),
+
     // Functions
 };

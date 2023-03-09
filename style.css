@@ -190,6 +190,17 @@ div.abilities div {
     color: var(--main-red);
 }
 
+/* Agent Page */
+
+div#agent {
+    display: flex;
+    align-items: center;
+}
+
+div.agentInfo div#abilities {
+    display: flex;
+}
+
 /* Media-query pour gérer l'affichage sur petit écran */
 @media (max-width: 900px) {
     #conteneur {

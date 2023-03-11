@@ -16,7 +16,7 @@ const view = {
 
     roleName: document.querySelector("#role p"),
 
-    abilities: document.getElementById("abilities")
+    abilities: document.querySelector(".abilities")
 
     // Functions
 };

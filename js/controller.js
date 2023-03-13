@@ -26,7 +26,7 @@ const searchForResults = async () => {
     const agents = await getData(url + "/agents/");
 
     // Putting the agents that have been searched in an array
-    searchResults = [];
+    const searchResults = [];
     
     for (let i = 0; i < agents.length; i++) {
         if (
@@ -103,8 +103,6 @@ const searchForResults = async () => {
         view.searchingResults.appendChild(noResult);
     }
 
-    
-
     // Putting back the researches and removing the loading gif
     view.searchingResults.style.display = "flex";
     view.waitingIcon.style.display = "none";
@@ -119,3 +117,28 @@ document.addEventListener("keydown", (e) => {
         searchForResults();
     }
 })
+
+
+view.searchInput.addEventListener("keyup", (event) => {
+    console.log(event.target.value);
+    if (event.target.value === "") {
+        view.favoritesButton.disabled = true;
+        view.favoritesButton.style.cursor = "default";
+
+    } else {
+        view.favoritesButton.disabled = false;
+        view.favoritesButton.style.cursor = "pointer";
+    }
+    console.log(view.favoritesButton.disabled);
+
+});
+
+const searchForFavorites = () => {
+    
+    if (view.searchInput.value === "") {
+        
+    }
+
+}
+
+view.favoritesButton.addEventListener("click", searchForFavorites);

@@ -127,6 +127,7 @@ h1 {
 
 div.card {
     background-color: #282A2A;
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 60px;
@@ -145,13 +146,20 @@ div.agent p span {
 
 div.abilities {
     display: flex;
-    gap: 52px;
+    justify-content: space-between;
+    width: 70%;
 }
 
 div.abilities div {
+    gap: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+div.abilities div p {
+    width: 120px;
+    text-align: center;
 }
 
 
@@ -187,6 +195,41 @@ div.abilities div {
 
 #liste-favoris li span:hover {
     color: var(--main-red);
+}
+
+/* Agent Page */
+
+div#agent {
+    display: flex;
+    align-items: center;
+    width: 90%;
+}
+
+div#agent div.agentInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+div.agentInfo div.top {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+}
+
+div#agent p {
+    margin: 0;
+}
+
+div.top div#role {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+div#role img {
+    width: 110px;
 }
 
 /* Media-query pour gérer l'affichage sur petit écran */

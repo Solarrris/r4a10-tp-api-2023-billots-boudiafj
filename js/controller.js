@@ -1,16 +1,8 @@
 "use-strict";
 
-const url = "https://valorant-api.com/v1";
-
-const getData = async function (url) {
-    try {
-        const response = await fetch(url);
-        const jsResponse = await response.json();
-        return jsResponse.data;
-    } catch (error) {
-        console.error(error);
-    }
-};
+const showResultPage = async (uuid) => {
+    window.location.href = window.location.href + "agent.html?agentId=" + uuid;
+}
 
 const searchForResults = async () => {
     // Showing the loading gif
@@ -45,6 +37,10 @@ const searchForResults = async () => {
         for (let i = 0; i < searchResults.length; i++) {
             const card = document.createElement("div");
             card.classList.add("card");
+
+            card.addEventListener('click', () => {
+                showResultPage(searchResults[i].uuid);
+            });
 
             const agentDiv = document.createElement("div");
             agentDiv.classList.add("agent");
@@ -111,8 +107,6 @@ const searchForResults = async () => {
 view.searchButton.addEventListener("click", searchForResults);
 
 document.addEventListener("keydown", (e) => {
-
-    console.log(e);
     if (e.target === view.searchInput && e.code === 'Enter') {
         searchForResults();
     }

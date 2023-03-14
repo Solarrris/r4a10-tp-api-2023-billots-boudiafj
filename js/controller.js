@@ -122,25 +122,51 @@ view.searchInput.addEventListener("mouseleave", (e) => {
 
 
 view.searchInput.addEventListener("keyup", (event) => {
-    console.log(event.target.value);
     if (event.target.value === "") {
         view.favoritesButton.disabled = true;
         view.favoritesButton.style.cursor = "default";
+        view.favoritesButton.style.backgroundColor = "#bebebe";
 
     } else {
         view.favoritesButton.disabled = false;
         view.favoritesButton.style.cursor = "pointer";
+        view.favoritesButton.style.backgroundColor = "#20230F";
     }
-    console.log(view.favoritesButton.disabled);
-
 });
 
-const searchForFavorites = () => {
 
-    if (view.searchInput.value === "") {
+view.favoritesButton.addEventListener("click", () => {
+    if (view.favoritesButton.disabled === false) {
+        let i = 0;
 
+        while (i < view.favoriteResearches.length && view.searchInput.value.trim() !== view.favoriteResearches[i].innerText.trim()) {
+            i++;
+        }
+
+        if (i === view.favoriteResearches.length) {
+            favoriteResearchesArray.push(view.searchInput.value.trim());
+            localStorage.setItem("favorites", favoriteResearchesArray);   
+
+            for (let i = 0; i < favoriteResearchesArray.length; i++) {        
+                const favoriteLi = document.createElement("li");
+                const favoriteSpan = document.createElement("span");
+                const favoriteImg = document.createElement("img");
+
+                //ajouter eventlistener pour image et span
+
+                favoriteSpan.title = "Click to restart the research";
+                favoriteSpan.innerHTML = favoriteResearchesArray[i];
+
+                favoriteImg.src = "images/croix.svg";
+                favoriteImg.alt = "Icon to delete the favourite research";
+                favoriteImg.style.width = "15px";
+                favoriteImg.title = "Click to delete the favourite research";
+
+                favoriteLi.appendChild(favoriteSpan);
+                favoriteLi.appendChild(favoriteImg);
+
+                view.favoriteResearchesList.appendChild(favoriteLi); 
+            }         
+        }
     }
-
-}
-
-view.favoritesButton.addEventListener("click", searchForFavorites);
+});

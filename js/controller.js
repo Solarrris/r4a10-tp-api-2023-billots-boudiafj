@@ -23,7 +23,7 @@ const searchForResults = async () => {
 
     // Putting the agents that have been searched in an array
     const searchResults = [];
-    
+
     for (let i = 0; i < agents.length; i++) {
         if (
             agents[i].displayName
@@ -108,12 +108,20 @@ const searchForResults = async () => {
     view.waitingIcon.style.display = "none";
 }
 
-view.searchButton.addEventListener("click", searchForResults);
-
-document.addEventListener("keydown", (e) => {
-    if (e.target === view.searchInput && e.code === 'Enter') {
+const onInput = (e) => {
+    if (e.code === 'Enter') {
         searchForResults();
     }
+}
+
+view.searchButton.addEventListener("click", searchForResults);
+
+view.searchInput.addEventListener("mouseenter", (e) => {
+    document.addEventListener("keydown", onInput);
+})
+
+view.searchInput.addEventListener("mouseleave", (e) => {
+    document.removeEventListener("keydown", onInput);
 })
 
 

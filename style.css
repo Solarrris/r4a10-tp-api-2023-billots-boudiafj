@@ -81,6 +81,10 @@ h1 {
     border: 0.3em solid var(--main-red);
 }
 
+#bloc-recherche > input[type="text"]:focus {
+    outline: none;
+}
+
 #bloc-recherche > button {
     padding: 0.8em 0.8em;
     /* Bordure invisible pour que le hover ne bouge pas le bouton */

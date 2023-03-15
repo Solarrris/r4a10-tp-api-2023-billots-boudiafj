@@ -146,7 +146,8 @@ view.searchInput.addEventListener("keyup", (event) => {
 });
 
 const updateFavorites = () => {
-    if (localStorage.getItem("favorites") !== "") {
+    if (localStorage.getItem("favorites") !== "" && localStorage.getItem("favorites") !== null) {
+        console.log(localStorage.getItem("favorites"));
         favoriteResearchesArray = JSON.parse(localStorage.getItem("favorites"));
         while (view.favoriteResearchesList.firstChild) {
             view.favoriteResearchesList.removeChild(view.favoriteResearchesList.firstChild);

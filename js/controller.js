@@ -81,8 +81,6 @@ const searchForResults = async () => {
 
                     abilitiesDiv.appendChild(abilityDiv);
                 }
-
-
             }
 
             const role = document.createElement("img");
@@ -130,12 +128,20 @@ view.searchInput.addEventListener("keyup", (event) => {
         view.favoritesButton.disabled = true;
         view.favoritesButton.style.cursor = "default";
         view.favoritesButton.style.backgroundColor = "#bebebe";
-        view.favoritesButton.firstChild.style.display = 
-
     } else {
         view.favoritesButton.disabled = false;
         view.favoritesButton.style.cursor = "pointer";
         view.favoritesButton.style.backgroundColor = "#20230F";
+    }
+
+    for (let i = 0; i < favoriteResearchesArray.length; i++) {
+        if (view.searchInput.value === favoriteResearchesArray[i].innerText) {
+            view.favoritesButton.firstChild.style.display = "none";
+            view.favoritesButton.lastChild.style.display = "block";
+        } else {
+            view.favoritesButton.lastChild.style.display = "none";
+            view.favoritesButton.firstChild.style.display = "block";
+        }
     }
 });
 

@@ -130,8 +130,6 @@ view.searchInput.addEventListener("keyup", (event) => {
         view.favoritesButton.disabled = true;
         view.favoritesButton.style.cursor = "default";
         view.favoritesButton.style.backgroundColor = "#bebebe";
-        view.favoritesButton.firstChild.style.display = 
-
     } else {
         view.favoritesButton.disabled = false;
         view.favoritesButton.style.cursor = "pointer";
@@ -140,51 +138,60 @@ view.searchInput.addEventListener("keyup", (event) => {
 });
 
 const updateFavorites = () => {
-    favoriteResearchesArray = JSON.parse(localStorage.getItem("favorites"));
+    if (localStorage.getItem("favorites") !== "") {
+        favoriteResearchesArray = JSON.parse(localStorage.getItem("favorites"));
+        while (view.favoriteResearchesList.firstChild) {
+            view.favoriteResearchesList.removeChild(view.favoriteResearchesList.firstChild);
+        }
 
-    while (view.favoriteResearchesList.firstChild) {
-        view.favoriteResearchesList.removeChild(view.favoriteResearchesList.firstChild);
-    }
+        while (view.searchesDataList.firstChild) {
+            view.searchesDataList.removeChild(view.searchesDataList.firstChild);
+        }
 
-    if (view.favoritesSection.lastChild.nodeName === "P") {
-        view.favoritesSection.removeChild(view.favoritesSection.lastChild);
-    }
+        if (view.favoritesSection.lastChild.nodeName === "P") {
+            view.favoritesSection.removeChild(view.favoritesSection.lastChild);
+        }
 
-    if (favoriteResearchesArray.length > 0) {
-        for (let i = 0; i < favoriteResearchesArray.length; i++) {        
-            const favoriteLi = document.createElement("li");
-            const favoriteSpan = document.createElement("span");
-            const favoriteImg = document.createElement("img");
-    
-            //ajouter eventlistener pour image et span
-            favoriteSpan.addEventListener("click", () => {
-                view.searchInput.value = favoriteSpan.innerHTML;
-                searchForResults();
-            })
-    
-            favoriteImg.addEventListener("click", () => {
-                favoriteResearchesArray.splice(i, 1);
-                localStorage.setItem("favorites", JSON.stringify(favoriteResearchesArray));
-                updateFavorites();
-            })
-    
-            favoriteSpan.title = "Click to restart the research";
-            favoriteSpan.innerHTML = favoriteResearchesArray[i];
-    
-            favoriteImg.src = "images/croix.svg";
-            favoriteImg.alt = "Icon to delete the favourite research";
-            favoriteImg.style.width = "15px";
-            favoriteImg.title = "Click to delete the favourite research";
-    
-            favoriteLi.appendChild(favoriteSpan);
-            favoriteLi.appendChild(favoriteImg);  
-    
-            view.favoriteResearchesList.appendChild(favoriteLi); 
-        }         
-    } else {
-        const noFav = document.createElement("p");
-        noFav.innerHTML = "(No favourite research)";
-        view.favoritesSection.appendChild(noFav);
+        if (favoriteResearchesArray.length > 0) {
+            for (let i = 0; i < favoriteResearchesArray.length; i++) {
+                const favoriteLi = document.createElement("li");
+                const favoriteSpan = document.createElement("span");
+                const favoriteImg = document.createElement("img");
+
+                //ajouter eventlistener pour image et span
+                favoriteSpan.addEventListener("click", () => {
+                    view.searchInput.value = favoriteSpan.innerHTML;
+                    searchForResults();
+                })
+
+                favoriteImg.addEventListener("click", () => {
+                    favoriteResearchesArray.splice(i, 1);
+                    localStorage.setItem("favorites", JSON.stringify(favoriteResearchesArray));
+                    updateFavorites();
+                })
+
+                favoriteSpan.title = "Click to restart the research";
+                favoriteSpan.innerHTML = favoriteResearchesArray[i];
+
+                favoriteImg.src = "images/croix.svg";
+                favoriteImg.alt = "Icon to delete the favourite research";
+                favoriteImg.style.width = "15px";
+                favoriteImg.title = "Click to delete the favourite research";
+
+                favoriteLi.appendChild(favoriteSpan);
+                favoriteLi.appendChild(favoriteImg);
+
+                const option = document.createElement("option");
+                option.innerHTML = favoriteResearchesArray[i];
+                view.searchesDataList.appendChild(option);
+
+                view.favoriteResearchesList.appendChild(favoriteLi);
+            }
+        } else {
+            const noFav = document.createElement("p");
+            noFav.innerHTML = "(No favourite research)";
+            view.favoritesSection.appendChild(noFav);
+        }
     }
 }
 
@@ -198,7 +205,7 @@ view.favoritesButton.addEventListener("click", () => {
 
         if (i === view.favoriteResearches.length) {
             favoriteResearchesArray.push(view.searchInput.value.trim());
-            localStorage.setItem("favorites", JSON.stringify(favoriteResearchesArray));   
+            localStorage.setItem("favorites", JSON.stringify(favoriteResearchesArray));
 
             updateFavorites();
         }

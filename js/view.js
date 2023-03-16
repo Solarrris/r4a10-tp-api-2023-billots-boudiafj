@@ -18,7 +18,9 @@ const view = {
 
     favoriteResearchesList: document.getElementById("liste-favoris"),
 
-    favoriteResearches: document.getElementById("liste-favoris").children
+    favoriteResearches: document.getElementById("liste-favoris").children,
+
+    favoriteImages: document.getElementById("btn-favoris").querySelectorAll("img"),
 
     // Functions
 };

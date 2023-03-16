@@ -125,6 +125,23 @@ view.searchInput.addEventListener("mouseleave", (e) => {
     document.removeEventListener("keydown", onInput);
 });
 
+const showFavoriteImage = () => {
+    let i = 0;
+
+    while (i < favoriteResearchesArray.length && view.searchInput.value !== favoriteResearchesArray[i]) {
+        i++;
+    }
+
+    if (i < favoriteResearchesArray.length) {
+        console.log(view.favoriteImages);
+        view.favoriteImages[0].style.display = "none";
+        view.favoriteImages[1].style.display = "block";        
+    } else {
+        view.favoriteImages[0].style.display = "block";
+        view.favoriteImages[1].style.display = "none";    
+    }
+}
+
 view.searchInput.addEventListener("keyup", (event) => {
     if (event.target.value === "") {
         view.favoritesButton.disabled = true;
@@ -133,31 +150,25 @@ view.searchInput.addEventListener("keyup", (event) => {
     } else {
         view.favoritesButton.disabled = false;
         view.favoritesButton.style.cursor = "pointer";
-        view.favoritesButton.style.backgroundColor = "#20230F";
+        view.favoritesButton.style.backgroundColor = "#ff4655";
     }
 
-    for (let i = 0; i < favoriteResearchesArray.length; i++) {
-        if (view.searchInput.value === favoriteResearchesArray[i].innerText) {
-            view.favoritesButton.firstChild.style.display = "none";
-            view.favoritesButton.lastChild.style.display = "block";
-        } else {
-            view.favoritesButton.lastChild.style.display = "none";
-            view.favoritesButton.firstChild.style.display = "block";
-        }
-    }
+    showFavoriteImage();    
 });
 
+const displayNoFavMessage = () => {
+    const noFav = document.createElement("p");
+    noFav.innerHTML = "(No favourite research)";
+    view.favoritesSection.appendChild(noFav);
+}
+
 const updateFavorites = () => {
-    if (
-        localStorage.getItem("favorites") !== "" &&
-        localStorage.getItem("favorites") !== null
-    ) {
+    if (localStorage.getItem("favorites") !== "" && localStorage.getItem("favorites") !== null) {
         console.log(localStorage.getItem("favorites"));
         favoriteResearchesArray = JSON.parse(localStorage.getItem("favorites"));
+
         while (view.favoriteResearchesList.firstChild) {
-            view.favoriteResearchesList.removeChild(
-                view.favoriteResearchesList.firstChild
-            );
+            view.favoriteResearchesList.removeChild(view.favoriteResearchesList.firstChild);
         }
 
         while (view.searchesDataList.firstChild) {
@@ -172,9 +183,8 @@ const updateFavorites = () => {
             for (let i = 0; i < favoriteResearchesArray.length; i++) {
                 const favoriteLi = document.createElement("li");
                 const favoriteSpan = document.createElement("span");
-                const favoriteImg = document.createElement("img");
+                const favoriteImg = document.createElement("img"); 
 
-                //ajouter eventlistener pour image et span
                 favoriteSpan.addEventListener("click", () => {
                     view.searchInput.value = favoriteSpan.innerHTML;
                     searchForResults();
@@ -193,6 +203,7 @@ const updateFavorites = () => {
                 favoriteSpan.innerHTML = favoriteResearchesArray[i];
 
                 favoriteImg.src = "images/croix.svg";
+                favoriteImg.style.marginLeft = "10px";
                 favoriteImg.alt = "Icon to delete the favourite research";
                 favoriteImg.style.width = "15px";
                 favoriteImg.title = "Click to delete the favourite research";
@@ -207,10 +218,10 @@ const updateFavorites = () => {
                 view.favoriteResearchesList.appendChild(favoriteLi);
             }
         } else {
-            const noFav = document.createElement("p");
-            noFav.innerHTML = "(No favourite research)";
-            view.favoritesSection.appendChild(noFav);
+          displayNoFavMessage();
         }
+    } else {
+        displayNoFavMessage(); 
     }
 };
 
@@ -236,4 +247,6 @@ view.favoritesButton.addEventListener("click", () => {
             updateFavorites();
         }
     }
+  
+    showFavoriteImage();
 });

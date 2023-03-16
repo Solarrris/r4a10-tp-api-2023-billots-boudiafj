@@ -36,6 +36,34 @@ p.info-vide {
     font-style: italic;
 }
 
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    position: relative;
+}
+
+nav a::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -2px;
+    background-color: #f0f0f0;
+    width: 0%;
+    height: 2px;
+    transition: 0.2s;
+}
+
+nav a:hover::before {
+    width: 100%;
+}
+
 /* Partie En-tête */
 h1 {
     text-align: center;
@@ -126,7 +154,7 @@ h1 {
 }
 
 div.card {
-    background-color: #282A2A;
+    background-color: #282a2a;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -154,7 +182,6 @@ div.abilities div {
     flex-direction: column;
     align-items: center;
 }
-
 
 /* Section de la barre de séparation */
 #section-separation {

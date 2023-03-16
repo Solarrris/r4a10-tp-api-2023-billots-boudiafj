@@ -2,7 +2,7 @@
 
 const showResultPage = async (uuid) => {
     window.location.href = window.location.href + "agent.html?agentId=" + uuid;
-}
+};
 
 const searchForResults = async () => {
     // Showing the loading gif
@@ -19,12 +19,13 @@ const searchForResults = async () => {
 
     // Putting the agents that have been searched in an array
     searchResults = [];
-    
+
     for (let i = 0; i < agents.length; i++) {
         if (
             agents[i].displayName
                 .toLowerCase()
-                .includes(view.searchInput.value.toLowerCase()) && agents[i].isPlayableCharacter
+                .includes(view.searchInput.value.toLowerCase()) &&
+            agents[i].isPlayableCharacter
         ) {
             searchResults.push(agents[i]);
         }
@@ -38,7 +39,7 @@ const searchForResults = async () => {
             const card = document.createElement("div");
             card.classList.add("card");
 
-            card.addEventListener('click', () => {
+            card.addEventListener("click", () => {
                 showResultPage(searchResults[i].uuid);
             });
 
@@ -51,7 +52,8 @@ const searchForResults = async () => {
             const agentName = document.createElement("p");
 
             agentIcon.src = searchResults[i].displayIcon;
-            agentName.innerHTML = "<span>Nom : </span>" + searchResults[i].displayName;
+            agentName.innerHTML =
+                "<span>Nom : </span>" + searchResults[i].displayName;
 
             agentDiv.appendChild(agentIcon);
             agentDiv.appendChild(agentName);
@@ -60,7 +62,7 @@ const searchForResults = async () => {
             abilitiesDiv.classList.add("abilities");
 
             for (let j = 0; j < searchResults[i].abilities.length; j++) {
-                if (searchResults[i].abilities[j].slot !== 'Passive') {
+                if (searchResults[i].abilities[j].slot !== "Passive") {
                     const abilityDiv = document.createElement("div");
 
                     const abilityIcon = document.createElement("img");
@@ -70,15 +72,14 @@ const searchForResults = async () => {
                     const abilityName = document.createElement("p");
 
                     abilityIcon.src = searchResults[i].abilities[j].displayIcon;
-                    abilityName.innerHTML = searchResults[i].abilities[j].displayName
+                    abilityName.innerHTML =
+                        searchResults[i].abilities[j].displayName;
 
                     abilityDiv.appendChild(abilityIcon);
                     abilityDiv.appendChild(abilityName);
 
                     abilitiesDiv.appendChild(abilityDiv);
                 }
-
-
             }
 
             const role = document.createElement("img");
@@ -99,17 +100,15 @@ const searchForResults = async () => {
         view.searchingResults.appendChild(noResult);
     }
 
-    
-
     // Putting back the researches and removing the loading gif
     view.searchingResults.style.display = "flex";
     view.waitingIcon.style.display = "none";
-}
+};
 
 view.searchButton.addEventListener("click", searchForResults);
 
 document.addEventListener("keydown", (e) => {
-    if (e.target === view.searchInput && e.code === 'Enter') {
+    if (e.target === view.searchInput && e.code === "Enter") {
         searchForResults();
     }
-})
+});

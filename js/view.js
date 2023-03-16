@@ -12,5 +12,13 @@ const view = {
 
     favoritesButton: document.getElementById("btn-favoris"),
 
+    favoritesSection: document.getElementById("section-favoris"),
+    
+    searchesDataList: document.getElementById("searches-list"),
+
+    favoriteResearchesList: document.getElementById("liste-favoris"),
+
+    favoriteResearches: document.getElementById("liste-favoris").children
+
     // Functions
 };

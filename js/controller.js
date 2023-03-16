@@ -1,5 +1,9 @@
 "use-strict";
 
+window.onload = () => {
+    updateFavorites();
+};
+
 const showResultPage = async (uuid) => {
     window.location.href = window.location.href + "agent.html?agentId=" + uuid;
 };
@@ -18,7 +22,7 @@ const searchForResults = async () => {
     const agents = await getData(url + "/agents/");
 
     // Putting the agents that have been searched in an array
-    searchResults = [];
+    const searchResults = [];
 
     for (let i = 0; i < agents.length; i++) {
         if (
@@ -105,10 +109,131 @@ const searchForResults = async () => {
     view.waitingIcon.style.display = "none";
 };
 
+const onInput = (e) => {
+    if (e.code === "Enter") {
+        searchForResults();
+    }
+};
+
 view.searchButton.addEventListener("click", searchForResults);
 
-document.addEventListener("keydown", (e) => {
-    if (e.target === view.searchInput && e.code === "Enter") {
-        searchForResults();
+view.searchInput.addEventListener("mouseenter", (e) => {
+    document.addEventListener("keydown", onInput);
+});
+
+view.searchInput.addEventListener("mouseleave", (e) => {
+    document.removeEventListener("keydown", onInput);
+});
+
+view.searchInput.addEventListener("keyup", (event) => {
+    if (event.target.value === "") {
+        view.favoritesButton.disabled = true;
+        view.favoritesButton.style.cursor = "default";
+        view.favoritesButton.style.backgroundColor = "#bebebe";
+    } else {
+        view.favoritesButton.disabled = false;
+        view.favoritesButton.style.cursor = "pointer";
+        view.favoritesButton.style.backgroundColor = "#20230F";
+    }
+
+    for (let i = 0; i < favoriteResearchesArray.length; i++) {
+        if (view.searchInput.value === favoriteResearchesArray[i].innerText) {
+            view.favoritesButton.firstChild.style.display = "none";
+            view.favoritesButton.lastChild.style.display = "block";
+        } else {
+            view.favoritesButton.lastChild.style.display = "none";
+            view.favoritesButton.firstChild.style.display = "block";
+        }
+    }
+});
+
+const updateFavorites = () => {
+    if (
+        localStorage.getItem("favorites") !== "" &&
+        localStorage.getItem("favorites") !== null
+    ) {
+        console.log(localStorage.getItem("favorites"));
+        favoriteResearchesArray = JSON.parse(localStorage.getItem("favorites"));
+        while (view.favoriteResearchesList.firstChild) {
+            view.favoriteResearchesList.removeChild(
+                view.favoriteResearchesList.firstChild
+            );
+        }
+
+        while (view.searchesDataList.firstChild) {
+            view.searchesDataList.removeChild(view.searchesDataList.firstChild);
+        }
+
+        if (view.favoritesSection.lastChild.nodeName === "P") {
+            view.favoritesSection.removeChild(view.favoritesSection.lastChild);
+        }
+
+        if (favoriteResearchesArray.length > 0) {
+            for (let i = 0; i < favoriteResearchesArray.length; i++) {
+                const favoriteLi = document.createElement("li");
+                const favoriteSpan = document.createElement("span");
+                const favoriteImg = document.createElement("img");
+
+                //ajouter eventlistener pour image et span
+                favoriteSpan.addEventListener("click", () => {
+                    view.searchInput.value = favoriteSpan.innerHTML;
+                    searchForResults();
+                });
+
+                favoriteImg.addEventListener("click", () => {
+                    favoriteResearchesArray.splice(i, 1);
+                    localStorage.setItem(
+                        "favorites",
+                        JSON.stringify(favoriteResearchesArray)
+                    );
+                    updateFavorites();
+                });
+
+                favoriteSpan.title = "Click to restart the research";
+                favoriteSpan.innerHTML = favoriteResearchesArray[i];
+
+                favoriteImg.src = "images/croix.svg";
+                favoriteImg.alt = "Icon to delete the favourite research";
+                favoriteImg.style.width = "15px";
+                favoriteImg.title = "Click to delete the favourite research";
+
+                favoriteLi.appendChild(favoriteSpan);
+                favoriteLi.appendChild(favoriteImg);
+
+                const option = document.createElement("option");
+                option.innerHTML = favoriteResearchesArray[i];
+                view.searchesDataList.appendChild(option);
+
+                view.favoriteResearchesList.appendChild(favoriteLi);
+            }
+        } else {
+            const noFav = document.createElement("p");
+            noFav.innerHTML = "(No favourite research)";
+            view.favoritesSection.appendChild(noFav);
+        }
+    }
+};
+
+view.favoritesButton.addEventListener("click", () => {
+    if (view.favoritesButton.disabled === false) {
+        let i = 0;
+
+        while (
+            i < view.favoriteResearches.length &&
+            view.searchInput.value.trim() !==
+                view.favoriteResearches[i].innerText.trim()
+        ) {
+            i++;
+        }
+
+        if (i === view.favoriteResearches.length) {
+            favoriteResearchesArray.push(view.searchInput.value.trim());
+            localStorage.setItem(
+                "favorites",
+                JSON.stringify(favoriteResearchesArray)
+            );
+
+            updateFavorites();
+        }
     }
 });

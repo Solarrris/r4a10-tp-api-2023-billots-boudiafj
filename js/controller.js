@@ -1,10 +1,18 @@
 "use-strict";
 
+// Updating favourites on page load
 window.onload = () => {
     updateFavorites();
 };
 
 const showResultPage = async (uuid) => {
+    // Adding to the URL the agent page with an id in the variable agentId
+    // Disclaimer : If index.html is in the URL, we remove it.
+    const location = window.location.href;
+    if (location.includes("index.html")) {
+        window.location.href = window.location.href.replace("index.html", "");
+    }
+
     window.location.href = window.location.href + "agent.html?agentId=" + uuid;
 };
 
@@ -21,80 +29,102 @@ const searchForResults = async () => {
     // Getting the agents
     const agents = await getData(url + "/agents/");
 
-    // Putting the agents that have been searched in an array
+    // Creating an array to store agents searched
     const searchResults = [];
 
+    // Looping through all the agents in the game
     for (let i = 0; i < agents.length; i++) {
+        // If the agent name includes the search
         if (
             agents[i].displayName
                 .toLowerCase()
                 .includes(view.searchInput.value.toLowerCase()) &&
             agents[i].isPlayableCharacter
         ) {
+            // Adding the agent to the searched agents array
             searchResults.push(agents[i]);
         }
     }
 
+    // logging the agents searched
     console.log(searchResults);
 
     // If agents match the research, show a list of those agents
     if (searchResults.length !== 0) {
+        // Looping through the searched agents
         for (let i = 0; i < searchResults.length; i++) {
+            // Creating a card and adding its class
             const card = document.createElement("div");
             card.classList.add("card");
 
+            // Adding an eventl listener on the card
             card.addEventListener("click", () => {
                 showResultPage(searchResults[i].uuid);
             });
 
+            // Creating the agent div and adding its class
             const agentDiv = document.createElement("div");
             agentDiv.classList.add("agent");
 
+            // Creating the agent image and setting its size
             const agentIcon = document.createElement("img");
             agentIcon.style.width = "200px";
             agentIcon.style.height = "200px";
+
+            // Creating the agent name paragraph
             const agentName = document.createElement("p");
 
+            // Setting the source of the agent image
             agentIcon.src = searchResults[i].displayIcon;
+
+            // Setting the agent name
             agentName.innerHTML =
                 "<span>Nom : </span>" + searchResults[i].displayName;
 
+            // Adding the agent image and name to the agent div
             agentDiv.appendChild(agentIcon);
             agentDiv.appendChild(agentName);
 
+            // Creating a div for the agent's abilities and setting its class name
             const abilitiesDiv = document.createElement("div");
             abilitiesDiv.classList.add("abilities");
 
+            // Looping through the abilities of the agent
             for (let j = 0; j < searchResults[i].abilities.length; j++) {
+                // We decided not to add the passive of the character in the game
                 if (searchResults[i].abilities[j].slot !== "Passive") {
+                    // Creating a div for the ability itself
                     const abilityDiv = document.createElement("div");
 
+                    // Creating the icon element and stting its style
                     const abilityIcon = document.createElement("img");
                     abilityIcon.style.width = "120px";
                     abilityIcon.style.height = "120px";
 
+                    // Creating the element for the name of the ability
                     const abilityName = document.createElement("p");
 
+                    // Setting the icon source
                     abilityIcon.src = searchResults[i].abilities[j].displayIcon;
+
+                    // Setting the ability name
                     abilityName.innerHTML =
                         searchResults[i].abilities[j].displayName;
 
+                    // Adding the icon and the name to the ability div
                     abilityDiv.appendChild(abilityIcon);
                     abilityDiv.appendChild(abilityName);
 
+                    // Adding the ability div to the abilities div
                     abilitiesDiv.appendChild(abilityDiv);
                 }
             }
 
-            const role = document.createElement("img");
-            const roleName = document.createElement("p");
-
-            role.src = searchResults[i].role.displayIcon;
-            roleName.innerHTML = searchResults[i].role.displayName;
-
+            // Adding the agent div and the abilities div to the agent card
             card.appendChild(agentDiv);
             card.appendChild(abilitiesDiv);
 
+            // Adding the card to the results of the search
             view.searchingResults.appendChild(card);
         }
     } else {
@@ -110,39 +140,60 @@ const searchForResults = async () => {
 };
 
 const onInput = (e) => {
+    // If the user presses Enter
     if (e.code === "Enter") {
+        // Launch the search
         searchForResults();
     }
 };
 
+// Adding an event listener to the search button to launch the search
 view.searchButton.addEventListener("click", searchForResults);
 
+// Adding an event listener to the search input on mouse enter to add another one to the document, so that it executes the onInput() function
 view.searchInput.addEventListener("mouseenter", (e) => {
     document.addEventListener("keydown", onInput);
 });
 
+// Adding an event listener to the search input on mouse leave to remove another one to the document, so that it executes the onInput() function
 view.searchInput.addEventListener("mouseleave", (e) => {
     document.removeEventListener("keydown", onInput);
 });
 
+// Adding an event listener to the search input on keyup
 view.searchInput.addEventListener("keyup", (event) => {
+    // The value of the input is empty
     if (event.target.value === "") {
+        // Disable the favourites button
         view.favoritesButton.disabled = true;
+
+        // Putting the cursor style to default on the favourites button
         view.favoritesButton.style.cursor = "default";
+
+        // Putting back the default background color to the button
         view.favoritesButton.style.backgroundColor = "#bebebe";
     } else {
+        // Activating the favourites button
         view.favoritesButton.disabled = false;
+
+        // Putting the cursor style to pointer on the favourites button
         view.favoritesButton.style.cursor = "pointer";
+
+        // Putting a different background color to the button so that we can see it's clickable
         view.favoritesButton.style.backgroundColor = "#20230F";
     }
 
+    // Looping through the favorites researches
     for (let i = 0; i < favoriteResearchesArray.length; i++) {
+        // If the value of the search input is equal to the current favourite research
         if (view.searchInput.value === favoriteResearchesArray[i].innerText) {
+            // Displaying the filled star and setting the empty one to display: none to make it hidden
             view.favoritesButton.firstChild.style.display = "none";
             view.favoritesButton.lastChild.style.display = "block";
         } else {
-            view.favoritesButton.lastChild.style.display = "none";
+            // Displaying the empty star and setting the filled one to display: none to make it hidden
             view.favoritesButton.firstChild.style.display = "block";
+            view.favoritesButton.lastChild.style.display = "none";
         }
     }
 });

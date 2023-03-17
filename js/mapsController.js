@@ -15,8 +15,10 @@ window.onload = async () => {
         const mapImg = document.createElement("img");
         const mapName = document.createElement("p");
 
+        
 
-    mapsView.grid.appendChild(map);
+
+    mapsView.grid.appendChild();
 
 
         

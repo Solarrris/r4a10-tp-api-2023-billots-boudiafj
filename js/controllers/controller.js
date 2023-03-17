@@ -80,6 +80,7 @@ const showFavoriteImage = () => {
 
 // Adding an event listener to the search input on keyup
 view.searchInput.addEventListener("keyup", (event) => {
+    console.log(favorites);
     // The value of the input is empty
     if (event.target.value === "") {
         // Disable the favourites button
@@ -141,15 +142,13 @@ const updateFavorites = () => {
 
         // If there is elements inside the favourites array
         if (favorites.getList().length > 0) {
-
             // Looping through the array
             for (let i = 0; i < favorites.getList().length; i++) {
-
                 const favoriteLi = favorites.createFavoriteElements(i);
 
                 const favoriteSpan = document.createElement("span");
                 favoriteSpan.title = "Click to restart the research";
-                favorites.setSpanValue(favoriteSpan, i)
+                favorites.setSpanValue(favoriteSpan, i);
 
                 // Adding listeners to some elements
                 favoriteSpan.addEventListener("click", () => {
@@ -181,7 +180,6 @@ const updateFavorites = () => {
 view.favoritesButton.addEventListener("click", () => {
     // If the button is not disabled
     if (view.favoritesButton.disabled === false) {
-
         // If the image displayed is the empty one
         if (view.favoriteImages[0].style.display === "block") {
             // Adding the value of the search input

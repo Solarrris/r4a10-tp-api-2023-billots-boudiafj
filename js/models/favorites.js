@@ -2,12 +2,16 @@
 
 class Favorites {
     constructor() {
+        // Getting the favorites research array in the local storage
         if (
-            localStorage.getItem("favorites") !== "" &&
-            localStorage.getItem("favorites") !== null
+            JSON.parse(localStorage.getItem("favorites")) !== null &&
+            JSON.parse(localStorage.getItem("favorites")) !== undefined
         ) {
-            // Getting the favorites research array in the local storage
-            this.favoriteResearchesArray = JSON.parse(localStorage.getItem("favorites")) ? JSON.parse(localStorage.getItem("favorites")) : [];
+            this.favoriteResearchesArray = JSON.parse(
+                localStorage.getItem("favorites")
+            );
+        } else {
+            this.favoriteResearchesArray = [];
         }
     }
 
@@ -27,7 +31,7 @@ class Favorites {
         noFav.innerHTML = "(No favourite research)";
 
         return noFav;
-    };
+    }
 
     isFavouriteInsideFavouritesArray() {
         // Initializing a counter
@@ -80,21 +84,17 @@ class Favorites {
 
     addValueToFavorites(value) {
         this.favoriteResearchesArray.push(value.trim());
-            localStorage.setItem(
-                "favorites",
-                JSON.stringify(this.favoriteResearchesArray)
-            );
+        localStorage.setItem(
+            "favorites",
+            JSON.stringify(this.favoriteResearchesArray)
+        );
     }
-    
 
     loopAndRemoveFavoriteElement(value) {
         // We search for the element to remove
         for (let i = 0; i < this.favoriteResearchesArray.length; i++) {
             // If the value if the current element is the same as the value of the input
-            if (
-                value.trim() ===
-                this.favoriteResearchesArray[i]
-            ) {
+            if (value.trim() === this.favoriteResearchesArray[i]) {
                 // Remove the element from the list
                 this.favoriteResearchesArray.splice(i, 1);
             }

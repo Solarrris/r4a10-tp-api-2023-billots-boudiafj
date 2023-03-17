@@ -78,10 +78,9 @@ const showFavoriteImage = () => {
     }
 };
 
-// Adding an event listener to the search input on keyup
-view.searchInput.addEventListener("keyup", (event) => {
+const disableButton = () => {
     // The value of the input is empty
-    if (event.target.value === "") {
+    if (view.searchInput.value === "") {
         // Disable the favourites button
         view.favoritesButton.disabled = true;
 
@@ -100,10 +99,10 @@ view.searchInput.addEventListener("keyup", (event) => {
     }
 
     showFavoriteImage();
+};
 
-    // Putting a different background color to the button so that we can see it's clickable
-    view.favoritesButton.style.backgroundColor = "#20230F";
-});
+// Adding an event listener to the search input on keyup
+view.searchInput.addEventListener("keyup", disableButton);
 
 const displayNoFavMessage = () => {
     const element = favorites.displayNoFavMessage();
@@ -153,6 +152,8 @@ const updateFavorites = () => {
                 favoriteSpan.addEventListener("click", () => {
                     // Launch the research
                     view.searchInput.value = favoriteSpan.innerHTML;
+                    showFavoriteImage();
+                    disableButton();
                     searchForResults();
                 });
 

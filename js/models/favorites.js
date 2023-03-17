@@ -48,19 +48,12 @@ class Favorites {
         return i < this.favoriteResearchesArray.length;
     }
 
-    createFavoriteElements(value, i) {
+    createFavoriteElements(i) {
         // Creating elements
         const favoriteLi = document.createElement("li");
-        const favoriteSpan = document.createElement("span");
         const favoriteImg = document.createElement("img");
 
-        // Adding listeners to some elements
-        favoriteSpan.addEventListener("click", () => {
-            // Launch the research
-            value = favoriteSpan.innerHTML;
-            searchForResults();
-        });
-
+        // Adding listener
         favoriteImg.addEventListener("click", () => {
             // Removing the current element form the favorites
             this.favoriteResearchesArray.splice(i, 1);
@@ -72,8 +65,6 @@ class Favorites {
         });
 
         // Adding titles, texts, sources and styles
-        favoriteSpan.title = "Click to restart the research";
-        favoriteSpan.innerHTML = this.favoriteResearchesArray[i];
 
         favoriteImg.src = "images/croix.svg";
         favoriteImg.style.marginLeft = "10px";
@@ -81,8 +72,7 @@ class Favorites {
         favoriteImg.style.width = "15px";
         favoriteImg.title = "Click to delete the favourite research";
 
-        // Adding the image and the cross icon to the list element
-        favoriteLi.appendChild(favoriteSpan);
+        // Adding the image to the list element
         favoriteLi.appendChild(favoriteImg);
 
         return favoriteLi;
@@ -115,5 +105,9 @@ class Favorites {
             "favorites",
             JSON.stringify(this.favoriteResearchesArray)
         );
+    }
+
+    setSpanValue(span, i) {
+        span.innerHTML = this.favoriteResearchesArray[i];
     }
 }

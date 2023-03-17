@@ -107,7 +107,7 @@ view.searchInput.addEventListener("keyup", (event) => {
 
 const displayNoFavMessage = () => {
     const element = favorites.displayNoFavMessage();
-    
+
     // Adding the element to the right parent
     view.favoritesSection.appendChild(element);
 };
@@ -145,7 +145,20 @@ const updateFavorites = () => {
             // Looping through the array
             for (let i = 0; i < favorites.getList().length; i++) {
 
-                const favoriteLi = favorites.createFavoriteElements(view.searchInput.value, i);
+                const favoriteLi = favorites.createFavoriteElements(i);
+
+                const favoriteSpan = document.createElement("span");
+                favoriteSpan.title = "Click to restart the research";
+                favorites.setSpanValue(favoriteSpan, i)
+
+                // Adding listeners to some elements
+                favoriteSpan.addEventListener("click", () => {
+                    // Launch the research
+                    view.searchInput.value = favoriteSpan.innerHTML;
+                    searchForResults();
+                });
+
+                favoriteLi.appendChild(favoriteSpan);
 
                 // Creating an option in the datalist to make the autocomplete work
                 const option = document.createElement("option");

@@ -25,6 +25,12 @@
             width: 100%;
          }
     </style>
+    <nav>
+        <ul>
+            <li class="agent"><a href="/">Agents</a></li>
+            <li class="maps"><a href="./maps.html">Maps</a></li>
+        </ul>
+    </nav>
     <div id="bloc-attente">
         <img
             src="images/attente-ajax.gif"
@@ -49,8 +55,9 @@
         </div>
     </div>
     
-    <script src="./js/agentView.js"></script>
+    <script src="./js/views/agentView.js"></script>
     <script src="./js/apiFunctions.js"></script>
-    <script src="./js/agentController.js"></script>
+    <script src="./js/models/agentModel.js"></script>
+    <script src="./js/controllers/agentController.js"></script>
 </body>
 </html>

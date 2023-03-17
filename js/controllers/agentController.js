@@ -1,8 +1,11 @@
+const agent = new Agent();
+
 window.onload = async () => {
+    // Getting the agent id in the URL
     const agentId = window.location.href.substring(window.location.href.indexOf("=") + 1);
     const result = await getData(url + "/agents/" + agentId);
-    console.log(result);
 
+    // Setting texts, sources, title and style using the agent properties
     document.title = result.displayName;
 
     view.agentName.innerHTML = result.displayName;
@@ -13,26 +16,14 @@ window.onload = async () => {
     view.roleIcon.src = result.role.displayIcon;
     view.roleName.innerHTML = result.role.displayName;
 
+    // Looping through its abilities
     for (let i = 0; i < result.abilities.length; i++) {
-        const ability = result.abilities[i];
-
-        const abilityDiv = document.createElement("div");
-
-        const abilityIcon = document.createElement("img");
-        abilityIcon.style.width = "120px";
-        abilityIcon.style.height = "120px";
-
-        const abilityName = document.createElement("p");
-
-        abilityIcon.src = ability.displayIcon;
-        abilityName.innerHTML = ability.displayName
-
-        abilityDiv.appendChild(abilityIcon);
-        abilityDiv.appendChild(abilityName);
+        const abilityDiv = agent.createAbilities(result.abilities[i]);
 
         view.abilities.appendChild(abilityDiv);
     }
 
+    // Setting the content div and not the loading gif
     view.waitingGif.style.display = "none";
     view.mainContent.style.display = "block";
 }

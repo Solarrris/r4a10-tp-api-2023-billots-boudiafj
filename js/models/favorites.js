@@ -67,7 +67,7 @@ class Favorites {
         // Adding titles, texts, sources and styles
 
         favoriteImg.src = "images/croix.svg";
-        favoriteImg.style.marginLeft = "10px";
+        favoriteImg.style.marginRight = "10px";
         favoriteImg.alt = "Icon to delete the favourite research";
         favoriteImg.style.width = "15px";
         favoriteImg.title = "Click to delete the favourite research";

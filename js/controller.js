@@ -5,6 +5,7 @@ window.onload = () => {
     updateFavorites();
 };
 
+
 const showResultPage = async (uuid) => {
     // Adding to the URL the agent page with an id in the variable agentId
     // Disclaimer : If index.html is in the URL, we remove it.

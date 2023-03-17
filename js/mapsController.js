@@ -9,16 +9,15 @@ window.onload = async () => {
     mapsView.mapIcon.style.height = "50vh"; //300px
 
     for (let i = 0; i < result.length; i++) {
-        const map = result[i];
 
         const mapCard = document.createElement("div");
         const mapImg = document.createElement("img");
         const mapName = document.createElement("p");
 
-        
 
-
-    mapsView.grid.appendChild();
+        mapCard.appendChild(mapImg);
+        mapCard.appendChild(mapName);
+        mapsView.grid.appendChild(mapCard);
 
 
         

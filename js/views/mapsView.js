@@ -2,11 +2,7 @@
 
 const mapsView = {
     //Elements
-    grid: document.getElementById("grid"),
-
-    mapName: document.getElementById("mapName"),
-
-    mapIcon: document.getElementById("mapIcon")
+    grid: document.getElementById("grid")
 
     // Functions
 };

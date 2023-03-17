@@ -163,19 +163,22 @@ view.searchInput.addEventListener("mouseleave", (e) => {
 const showFavoriteImage = () => {
     let i = 0;
 
-    while (i < favoriteResearchesArray.length && view.searchInput.value !== favoriteResearchesArray[i]) {
+    while (
+        i < favoriteResearchesArray.length &&
+        view.searchInput.value !== favoriteResearchesArray[i]
+    ) {
         i++;
     }
 
     if (i < favoriteResearchesArray.length) {
         console.log(view.favoriteImages);
         view.favoriteImages[0].style.display = "none";
-        view.favoriteImages[1].style.display = "block";        
+        view.favoriteImages[1].style.display = "block";
     } else {
         view.favoriteImages[0].style.display = "block";
-        view.favoriteImages[1].style.display = "none";    
+        view.favoriteImages[1].style.display = "none";
     }
-}
+};
 
 // Adding an event listener to the search input on keyup
 view.searchInput.addEventListener("keyup", (event) => {
@@ -198,26 +201,30 @@ view.searchInput.addEventListener("keyup", (event) => {
         view.favoritesButton.style.backgroundColor = "#ff4655";
     }
 
-    showFavoriteImage();    
+    showFavoriteImage();
 
-        // Putting a different background color to the button so that we can see it's clickable
-        view.favoritesButton.style.backgroundColor = "#20230F";
-    }
-);
+    // Putting a different background color to the button so that we can see it's clickable
+    view.favoritesButton.style.backgroundColor = "#20230F";
+});
 
 const displayNoFavMessage = () => {
     const noFav = document.createElement("p");
     noFav.innerHTML = "(No favourite research)";
     view.favoritesSection.appendChild(noFav);
-}
+};
 
 const updateFavorites = () => {
-    if (localStorage.getItem("favorites") !== "" && localStorage.getItem("favorites") !== null) {
+    if (
+        localStorage.getItem("favorites") !== "" &&
+        localStorage.getItem("favorites") !== null
+    ) {
         console.log(localStorage.getItem("favorites"));
         favoriteResearchesArray = JSON.parse(localStorage.getItem("favorites"));
 
         while (view.favoriteResearchesList.firstChild) {
-            view.favoriteResearchesList.removeChild(view.favoriteResearchesList.firstChild);
+            view.favoriteResearchesList.removeChild(
+                view.favoriteResearchesList.firstChild
+            );
         }
 
         while (view.searchesDataList.firstChild) {
@@ -232,7 +239,7 @@ const updateFavorites = () => {
             for (let i = 0; i < favoriteResearchesArray.length; i++) {
                 const favoriteLi = document.createElement("li");
                 const favoriteSpan = document.createElement("span");
-                const favoriteImg = document.createElement("img"); 
+                const favoriteImg = document.createElement("img");
 
                 favoriteSpan.addEventListener("click", () => {
                     view.searchInput.value = favoriteSpan.innerHTML;
@@ -267,26 +274,16 @@ const updateFavorites = () => {
                 view.favoriteResearchesList.appendChild(favoriteLi);
             }
         } else {
-          displayNoFavMessage();
+            displayNoFavMessage();
         }
     } else {
-        displayNoFavMessage(); 
+        displayNoFavMessage();
     }
 };
 
 view.favoritesButton.addEventListener("click", () => {
     if (view.favoritesButton.disabled === false) {
-        let i = 0;
-
-        while (
-            i < view.favoriteResearches.length &&
-            view.searchInput.value.trim() !==
-                view.favoriteResearches[i].innerText.trim()
-        ) {
-            i++;
-        }
-
-        if (i === view.favoriteResearches.length) {
+        if (view.favoriteImages[0].style.display === "block") {
             favoriteResearchesArray.push(view.searchInput.value.trim());
             localStorage.setItem(
                 "favorites",
@@ -294,8 +291,30 @@ view.favoritesButton.addEventListener("click", () => {
             );
 
             updateFavorites();
+        } else {
+            const result = confirm(
+                "Do you really want to remove this research from your favorites?"
+            );
+
+            if (result) {
+                for (let i = 0; i < favoriteResearchesArray.length; i++) {
+                    if (
+                        view.searchInput.value.trim() ===
+                        favoriteResearchesArray[i]
+                    ) {
+                        favoriteResearchesArray.splice(i, 1);
+                    }
+                }
+
+                localStorage.setItem(
+                    "favorites",
+                    JSON.stringify(favoriteResearchesArray)
+                );
+
+                updateFavorites();
+            }
         }
     }
-  
+
     showFavoriteImage();
 });

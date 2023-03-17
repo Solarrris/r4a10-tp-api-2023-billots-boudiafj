@@ -80,7 +80,6 @@ const showFavoriteImage = () => {
 
 // Adding an event listener to the search input on keyup
 view.searchInput.addEventListener("keyup", (event) => {
-    console.log(favorites);
     // The value of the input is empty
     if (event.target.value === "") {
         // Disable the favourites button
